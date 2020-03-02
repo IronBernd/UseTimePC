@@ -14,6 +14,7 @@ Tested with Excel 2016
 
 ToDo: 
   * Dokumentation of the Excel Sheet
-  * Read braek and worktime from Config sheet. 
+  * Read break and worktime from Config sheet. 
+  * Add Example Lines for Holiday and ill
   
   
