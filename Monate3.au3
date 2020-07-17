@@ -1,7 +1,7 @@
 #Region ;**** Directives created by AutoIt3Wrapper_GUI ****
 #AutoIt3Wrapper_UseUpx=y
 #AutoIt3Wrapper_Res_Comment=PC - Uptime 2 Excel
-#AutoIt3Wrapper_Res_Fileversion=0.3.0.6
+#AutoIt3Wrapper_Res_Fileversion=0.3.0.9
 #AutoIt3Wrapper_Res_Fileversion_AutoIncrement=y
 #AutoIt3Wrapper_Res_SaveSource=y
 #AutoIt3Wrapper_Res_Field=V0.1|Excel sheet background  must be changed
@@ -27,7 +27,7 @@ if $useTime > 45 Then
 EndIf
 
 If $bFileInstall = 0  Then
-	FileInstall( ".\Monate2_Original.xlsx", @ScriptDir & "\Monate2.xlsx")
+	FileInstall( ".\_Monate.xlsx", @ScriptDir & "\Monate2.xlsx")
 	$useTime = _DateDiff("D", $Day1, _NowCalcDate() )
 EndIf
 ; Create GUI
@@ -106,11 +106,11 @@ Func Example()
 		Local $aBreak = StringSplit($sLine1," ")
 		Local $d=0
 		while  ($aBreak[2] = $aStop[2]) and ($d <=30)
-			Msgbox(0,$aBreak[2],$aStop[2])
+;			Msgbox(0,$aBreak[2],$aStop[2])
 			Local $aZStop = StringSplit($aStop[3],":")
 			Local $aZBreak = StringSplit($aBreak[3],":")
 			Local $d = 60*($aZBreak[1]-$aZStop[1]) + ($aZBreak[2]-$aZStop[2])
-			MsgBox(0,$sLine2,$sLine1)
+;			MsgBox(0,$sLine2,$sLine1)
 			if  $d <= 30 Then
 				do
 					$sLine= FileReadLine($eFile) ; TimeGenerated ------------- DOWN
@@ -123,7 +123,7 @@ Func Example()
 			EndIf
 			$aBreak = StringSplit($sLine1," ")
 		WEnd
-		MsgBox(0,"T: " & $aStart[2] , $aStop[2]);
+;		MsgBox(0,"T: " & $aStart[2] , $aStop[2]);
 
 		if $aStart[2] = $aStop[2] Then ; Gleiches Datum
 			if $oDate <> $aStop[2] Then
