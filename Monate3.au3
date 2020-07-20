@@ -133,7 +133,7 @@ Func Example()
 			Local $t = StringFormat("%s: %s ... %s",$aDate[2],$aDate[1],$aStart[2])
 ;			MsgBox(0,$t,$sLine1)
 			_Excel_RangeWrite($oWorkbook,$aDate[2], $aStart[2] ,"B" & $aDate[1] + 1); Datum
-			_Excel_RangeWrite($oWorkbook,$aDate[2], $aStart[3] ,$aSta[$idx1] & $aDate[1] + 1); Start ZZeit
+			_Excel_RangeWrite($oWorkbook,$aDate[2], $aStart[3] ,$aSta[$idx1] & $aDate[1] + 1); Start Zeit
 			_Excel_RangeWrite($oWorkbook,$aDate[2], $aStop[3]  ,$aEnd[$idx1] & $aDate[1] + 1); End Zeit
 			$idx1+=1
 			if $idx1 >2 Then
@@ -147,13 +147,13 @@ Func Example()
 			Endif
 			Local $aDate=StringSplit($aStart[2],".")
 			_Excel_RangeWrite($oWorkbook,$aDate[2], $aStart[2] ,"B" & $aDate[1] + 1); Datum
-			_Excel_RangeWrite($oWorkbook,$aDate[2], $aStart[3] ,$aSta[$idx1] & $aDate[1] + 1); Start ZZeit
+			_Excel_RangeWrite($oWorkbook,$aDate[2], $aStart[3] ,$aSta[$idx1] & $aDate[1] + 1); Start Zeit
 			_Excel_RangeWrite($oWorkbook,$aDate[2], "23:59:59" ,$aEnd[$idx1] & $aDate[1] + 1); End Zeit
 
 			$idx1=0;
 			$aDate=StringSplit($aStop[2],".")
 			_Excel_RangeWrite($oWorkbook,$aDate[2], $aStop[2] ,"B" & $aDate[1] + 1); Datum
-			_Excel_RangeWrite($oWorkbook,$aDate[2], "00:00:00" ,$aSta[$idx1] & $aDate[1] + 1); Start ZZeit
+			_Excel_RangeWrite($oWorkbook,$aDate[2], "00:00:02" ,$aSta[$idx1] & $aDate[1] + 1); Start Zeit
 			_Excel_RangeWrite($oWorkbook,$aDate[2], $aStop[3]  ,$aEnd[$idx1] & $aDate[1] + 1); End Zeit
 			$idx1+=1
 			if $idx1 >2 Then
