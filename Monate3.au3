@@ -31,11 +31,12 @@ If $bFileInstall = 0  Then
 	$useTime = _DateDiff("D", $Day1, _NowCalcDate() )
 EndIf
 ; Create GUI
-Local $hGUI = GUICreate("Zeiterfassung", 400, 300)
+Local $hGUI = GUICreate("UseTimePC: Zeiterfassung", 400, 300)
 Local $hLabel = GUICtrlCreateLabel("Bitte Start Datum Eingeben",5,10);
 Local $hDTP = _GUICtrlDTP_Create($hGUI, 5, 30, 190)
 Local $hChk = GUICtrlCreateCheckbox( "Use Event:Application", 5, 55,150,15)
 Local $hButton = GUICtrlCreateButton("Start Import",5,75)
+Local $hDOINGS = GUICtrlCreateLabel(".",5,100,150,30);
 GUISetState(@SW_SHOW)
 
 _GUICtrlDTP_SetFormat($hDTP, "dd.MM.yyyy")
@@ -53,6 +54,7 @@ While 1
     WEnd
 
 GUICtrlSetState($hButton,$GUI_DISABLE )
+GUICtrlSetData($hDOINGS,"Read events .. This tke a while");
 If _IsChecked($hChk) Then
 	RunWait("C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe  ""$v2=Get-Date '" & $start_date & "'; Get-WinEvent -Oldest -FilterHashtable @{logname='Application';id=100,101}  | Select-Object ID,TimeCreated |  Where-Object { $_.TimeCreated -ge $v2 } | ft -HideTableHeaders >" & @ScriptDir & "\b.txx" & """ ",@ScriptDir,@SW_HIDE);
 	ReadAppEvents()
@@ -66,6 +68,7 @@ GUIDelete($hGUI)
 Func ReadAppEvents()
 	DIM $aSta[3]=["H","J","L"]
 	DIM $aEnd[3]  =["I","K","M"]
+	GUICtrlSetData($hDOINGS,"Open Excel sheet.");
 	Local $oExcel = _Excel_Open()
 	Local $sWorkbook = @ScriptDir & "\Monate2.xlsx"
 	Local $oWorkbook = _Excel_BookOpen($oExcel,$sWorkbook);
@@ -175,6 +178,8 @@ EndFunc   ;==>Example
 Func ReadSysEvents()
 	DIM $aSta[3]=["H","J","L"]
 	DIM $aEnd[3]  =["I","K","M"]
+	GUICtrlSetData($hDOINGS,"Open Excel sheet.");
+
 	Local $oExcel = _Excel_Open()
 	Local $sWorkbook = @ScriptDir & "\Monate2.xlsx"
 	Local $oWorkbook = _Excel_BookOpen($oExcel,$sWorkbook);
