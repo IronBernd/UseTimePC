@@ -1,7 +1,7 @@
 #Region ;**** Directives created by AutoIt3Wrapper_GUI ****
 #AutoIt3Wrapper_UseUpx=y
 #AutoIt3Wrapper_Res_Comment=PC - Uptime 2 Excel
-#AutoIt3Wrapper_Res_Fileversion=0.3.0.10
+#AutoIt3Wrapper_Res_Fileversion=0.3.0.11
 #AutoIt3Wrapper_Res_Fileversion_AutoIncrement=y
 #AutoIt3Wrapper_Res_SaveSource=y
 #AutoIt3Wrapper_Res_Field=V0.1|Excel sheet background  must be changed
@@ -56,10 +56,12 @@ While 1
 GUICtrlSetState($hButton,$GUI_DISABLE )
 GUICtrlSetData($hDOINGS,"Read events .. This tke a while");
 If _IsChecked($hChk) Then
-	RunWait("C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe  ""$v2=Get-Date '" & $start_date & "'; Get-WinEvent -Oldest -FilterHashtable @{logname='Application';id=100,101}  | Select-Object ID,TimeCreated |  Where-Object { $_.TimeCreated -ge $v2 } | ft -HideTableHeaders >" & @ScriptDir & "\b.txx" & """ ",@ScriptDir,@SW_HIDE);
+	local $dErr = RunWait("C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe  ""$v2=Get-Date '" & $start_date & "'; Get-WinEvent -Oldest -FilterHashtable @{logname='Application';id=100,101}  | Select-Object ID,TimeCreated |  Where-Object { $_.TimeCreated -ge $v2 } | ft -HideTableHeaders >" & @ScriptDir & "\b.txx" & """ ",@ScriptDir,@SW_SHOW);
+;	MsgBox(0,$dErr,@error & " " & $start_date)
 	ReadAppEvents()
 Else
-	RunWait("C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe  ""$v2=Get-Date '" & $start_date & "'; Get-WinEvent -Oldest -FilterHashtable @{logname='system';id=50037,153}  | Select-Object ID,TimeCreated |  Where-Object { $_.TimeCreated -ge $v2 } | ft -HideTableHeaders >" & @ScriptDir & "\a.txx" & """ ",@ScriptDir,@SW_HIDE);
+	local $dErr = RunWait("C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe  ""$v2=Get-Date '" & $start_date & "'; Get-WinEvent -Oldest -FilterHashtable @{logname='system';id=50037,153}  | Select-Object ID,TimeCreated |  Where-Object { $_.TimeCreated -ge $v2 } | ft -HideTableHeaders >" & @ScriptDir & "\a.txx" & """ ",@ScriptDir,@SW_SHOW);
+;	MsgBox(0,$dErr,@error & " " & $start_date)
 	ReadSysEvents()
 EndIf
 
@@ -201,6 +203,7 @@ Func ReadSysEvents()
 				$sLine1 = StringStripWS($sLine, $STR_STRIPLEADING )
 			EndIf
 			$aStart = StringSplit($sLine1," ") ; ID; Datum; Stunde
+;			MsgBox(0,"find start",$aStart[1]);
 			if  $aStart[1] <> 153 Then
 				$sLine  = FileReadLine($eFile) ; TimeGenerated -------------  UP
 				$sLine1 = StringStripWS($sLine, $STR_STRIPLEADING )
